@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="PhoneHub.Desktop.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="PhoneHub Pro - Cihaz İzleme"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Title Bar -->
+        <Grid x:Name="AppTitleBar" Height="32" Background="Transparent" Padding="12,0"/>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1" RowDefinitions="*" ColumnDefinitions="250,*">
+            <!-- Sidebar -->
+            <NavigationView Grid.Column="0" 
+                          IsBackButtonVisible="Collapsed"
+                          IsSettingsVisible="False"
+                          SelectionChanged="NavigationView_SelectionChanged">
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Icon="Home" Content="Cihazlar" Tag="Devices"/>
+                    <NavigationViewItem Icon="ScreenShot" Content="Ekran Görüntüsü" Tag="ScreenCapture"/>
+                    <NavigationViewItem Icon="Settings" Content="Gizli Mod" Tag="SilentMode"/>
+                    <NavigationViewItem Icon="People" Content="Dosya Yönetimi" Tag="FileManager"/>
+                    <NavigationViewItem Icon="MapPin" Content="Konum" Tag="Location"/>
+                    <NavigationViewItem Icon="Notifications" Content="Bildirimler" Tag="Notifications"/>
+                </NavigationView.MenuItems>
+            </NavigationView>
+
+            <!-- Content Area -->
+            <Frame x:Name="ContentFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="PhoneHub.Desktop.Views.SilentModePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Gizli Mod - Sessiz Kontrol">
+
+    <ScrollViewer>
+        <StackPanel Padding="24" Spacing="16">
+            <!-- Başlık -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="🔐 Gizli Mod (Silent Mode)" FontSize="28" FontWeight="Bold"/>
+                <TextBlock Text="Bilgisayardan telefonda izleme kaydı bırakmadan kontrol edin. Ekran kapalı kalır, hiçbir bildirim gösterilmez." 
+                          TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+
+            <!-- Cihaz Seçimi -->
+            <Card>
+                <StackPanel Padding="16" Spacing="12">
+                    <TextBlock Text="Cihaz Seçimi" FontWeight="Bold" FontSize="16"/>
+                    <ComboBox x:Name="DeviceComboBox" 
+                             PlaceholderText="Cihaz seçin..."
+                             Width="300"
+                             HorizontalAlignment="Left"
+                             SelectionChanged="DeviceComboBox_SelectionChanged"/>
+                    <Button Content="Durum Kontrolü" 
+                           Command="{Binding GetStatusCommand}"
+                           Background="#FF2D88D8"/>
+                </StackPanel>
+            </Card>
+
+            <!-- Durum Göstergesi -->
+            <Card>
+                <StackPanel Padding="16" Spacing="12">
+                    <TextBlock Text="Gizli Mod Durumu" FontWeight="Bold" FontSize="16"/>
+                    <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                           Padding="12" 
+                           CornerRadius="4"
+                           BorderThickness="2"
+                           BorderBrush="{Binding IsSilentModeEnabled, Converter={StaticResource BoolToColorConverter}}">
+                        <StackPanel Spacing="8">
+                            <TextBlock FontSize="14">
+                                <Run Text="Durum: " FontWeight="Bold"/>
+                                <Run Text="{Binding IsSilentModeEnabled}" FontWeight="SemiBold"/>
+                            </TextBlock>
+                            <TextBlock Text="{Binding StatusMessage}" 
+                                      TextWrapping="Wrap"
+                                      Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                            <ProgressRing IsActive="{Binding IsLoadingStatus}" 
+                                        Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Card>
+
+            <!-- Gizli Mod Ayarları -->
+            <Card>
+                <StackPanel Padding="16" Spacing="16">
+                    <TextBlock Text="⚙️ Gizli Mod Ayarları" FontWeight="Bold" FontSize="16"/>
+                    
+                    <!-- Ayarlar Listesi -->
+                    <StackPanel Spacing="12">
+                        <CheckBox Content="Ekranı kapalı tut (KeepDisplayOff)" 
+                                 IsChecked="{Binding KeepDisplayOff, Mode=TwoWay}"/>
+                        <TextBlock Text="Telefon ekranı hiçbir zaman açılmaz, her zaman kapalı kalır" 
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  Margin="24,0,0,8"/>
+
+                        <CheckBox Content="Sesi kapat (Mute Audio)" 
+                                 IsChecked="{Binding MuteAudio, Mode=TwoWay}"/>
+                        <TextBlock Text="Tüm sistem sesleri ve bildirim sesleri susturulur" 
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  Margin="24,0,0,8"/>
+
+                        <CheckBox Content="Titreşimi devre dışı bırak" 
+                                 IsChecked="{Binding DisableVibration, Mode=TwoWay}"/>
+                        <TextBlock Text="Telefon titreşim vermeyi durdurur" 
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  Margin="24,0,0,8"/>
+
+                        <CheckBox Content="Bildirim LED'ini kapat" 
+                                 IsChecked="{Binding DisableNotificationLED, Mode=TwoWay}"/>
+                        <TextBlock Text="Telefonun bildirim gösterge ışığı söner" 
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  Margin="24,0,0,8"/>
+
+                        <CheckBox Content="Sistem bildirimlerini gizle" 
+                                 IsChecked="{Binding HideSystemNotifications, Mode=TwoWay}"/>
+                        <TextBlock Text="Ekranda hiçbir sistem bildirimi görüntülenmez" 
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  Margin="24,0,0,8"/>
+
+                        <CheckBox Content="Logları devre dışı bırak" 
+                                 IsChecked="{Binding DisableLogs, Mode=TwoWay}"/>
+                        <TextBlock Text="Gizli işlemler kayıt altına alınmaz" 
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  Margin="24,0,0,8"/>
+
+                        <CheckBox Content="Oturumdan sonra geçmişi temizle" 
+                                 IsChecked="{Binding ClearHistoryAfterSession, Mode=TwoWay}"/>
+                        <TextBlock Text="Oturum bittiğinde, tarayıcı geçmişi, sistem günlükleri ve uygulamalar silinir" 
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  Margin="24,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Card>
+
+            <!-- PIN Koruma -->
+            <Card>
+                <StackPanel Padding="16" Spacing="12">
+                    <TextBlock Text="🔑 PIN Koruma" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock Text="Gizli modu devre dışı bırakmak için PIN belirleyin (opsiyonel)" 
+                              TextWrapping="Wrap"
+                              Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    <PasswordBox x:Name="PinPasswordBox" 
+                               PlaceholderText="PIN kodu girin..."
+                               Width="300"
+                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Card>
+
+            <!-- Kontrol Butonları -->
+            <Card>
+                <StackPanel Padding="16" Spacing="12" Orientation="Horizontal">
+                    <Button Content="✅ Gizli Modu Etkinleştir" 
+                           Command="{Binding EnableSilentModeCommand}"
+                           Background="#FF27AE60"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           Padding="16,8"/>
+                    <Button Content="❌ Gizli Modu Devre Dışı Bırak" 
+                           Command="{Binding DisableSilentModeCommand}"
+                           Background="#FFE74C3C"
+                           Foreground="White"
+                           FontWeight="Bold"
+                           Padding="16,8"/>
+                </StackPanel>
+            </Card>
+
+            <!-- Oturum Geçmişi -->
+            <Card>
+                <StackPanel Padding="16" Spacing="12">
+                    <TextBlock Text="📊 Gizli Oturum Geçmişi" FontWeight="Bold" FontSize="16"/>
+                    <Button Content="Geçmişi Yükle" 
+                           Command="{Binding LoadSessionHistoryCommand}"
+                           HorizontalAlignment="Left"/>
+                    
+                    <DataGrid ItemsSource="{Binding SessionHistory}" 
+                             IsReadOnly="True"
+                             AutoGenerateColumns="False"
+                             Height="300">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Başlama Tarihi" Binding="{Binding StartedAt}" Width="200"/>
+                            <DataGridTextColumn Header="Bitiş Tarihi" Binding="{Binding EndedAt}" Width="200"/>
+                            <DataGridTextColumn Header="İşlem Sayısı" Binding="{Binding OperationCount}" Width="100"/>
+                            <DataGridTextColumn Header="Süre" Binding="{Binding Duration}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Card>
+
+            <!-- Uyarı -->
+            <InfoBar Title="⚠️ Yasal Uyarı" 
+                    Message="Bu özellik yalnızca kendi cihazlarınızı izlemek için kullanılmalıdır. Başkasının cihazını izlemek yasadışıdır ve GDPR/KVKK gibi kanunlara aykırıdır."
+                    Severity="Warning"
+                    IsOpen="True"
+                    IsClosable="False"/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
