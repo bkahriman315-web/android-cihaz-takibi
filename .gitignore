@@ -1,0 +1,69 @@
+# Logs
+*.log
+logs/
+
+# Dependencies
+node_modules/
+packages/
+obj/
+bin/
+.gradle/
+.m2/
+
+# IDE
+.idea/
+.vs/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.iml
+.DS_Store
+
+# Build
+dist/
+build/
+.angular/
+
+# Environment
+.env
+.env.local
+.env.*.local
+appsettings.Development.json
+appsettings.Production.json
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Tests
+.coverage/
+TestResults/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Android
+.gradle
+.idea
+local.properties
+*.iml
+*.apk
+*.ap_
+*.aab
+capture.log
+
+# .NET
+.vs/
+.vscode/
+bin/
+obj/
+*.user
+*.suo
+*.sln.docstates
+Appsettings.*.json
+
+# Docker
+.dockerignore
